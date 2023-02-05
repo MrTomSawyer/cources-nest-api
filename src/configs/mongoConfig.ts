@@ -8,6 +8,7 @@ export const getMongoConfig = async (configService: ConfigService): Promise<Type
   }
 }
 
+// const getMongoString = (configService: ConfigService) => 'mongodb://admin:admin@localhost:27017/admin'
 const getMongoString = (configService: ConfigService) =>
   'mongodb://' +
   configService.get('MONGO_LOGIN') +
@@ -21,6 +22,5 @@ const getMongoString = (configService: ConfigService) =>
   configService.get('MONGO_AUTH_DATABASE');
 
 const getMongoOptions = () => ({
-  useNewUrlParser: true,
   useUnifiedTopology: true
 });

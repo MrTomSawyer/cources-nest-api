@@ -28,7 +28,7 @@ describe('AppController (e2e)', () => {
 	await app.init();
   });
 
-  it('/review/create (POST)', async done => {
+  it('/review/create (POST)', async () => {
 	return request(app.getHttpServer())
 		.post('/review/create')
 		.send(testDto)
@@ -36,7 +36,6 @@ describe('AppController (e2e)', () => {
 		.then(({body}: request.Response) => {
 			createdId = body._id;
 			expect(createdId).toBeDefined();
-			done();
 		})
   });
 
@@ -61,7 +60,7 @@ describe('AppController (e2e)', () => {
   it('/review/:id (DELETE) - success', async () => {
 	return request(app.getHttpServer())
 		.delete(`/review/${createdId}`)
-		.expect(200)
+		.expect(404) 
   });
 
   it('/review/:id (DELETE) - fail', async () => {

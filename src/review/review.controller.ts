@@ -1,4 +1,17 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Param,
+  Post,
+  UseGuards,
+  UsePipes,
+  ValidationPipe
+} from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { CreateReviewDto } from './dto/createReview.dto';
 import { REVIEW_NOT_FOUND } from './review.constants';
 import { ReviewService } from './review.service';
@@ -12,7 +25,8 @@ export default class ReviewController {
   async create(@Body() dto: CreateReviewDto) {
     return this.reviewService.create(dto);
   }
-
+  
+  @UseGuards(JwtAuthGuard)
   @Delete()
   async delete(@Param('id') id: string) {
     const deletedDoc = this.reviewService.delete(id);
